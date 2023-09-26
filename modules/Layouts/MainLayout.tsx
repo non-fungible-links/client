@@ -10,6 +10,7 @@ import {
   ApolloProvider,
   gql,
 } from "@apollo/client";
+import { useAccount, useNetwork, useSwitchNetwork } from "wagmi";
 
 interface LayoutProps {
   children: React.ReactNode;
@@ -36,6 +37,16 @@ const MainLayout = ({ children }: LayoutProps) => {
 
     main();
   }, []);
+
+  const { isConnected } = useAccount();
+  const { chain } = useNetwork();
+  const { switchNetwork } = useSwitchNetwork();
+
+  useEffect(() => {
+    if (isConnected && switchNetwork) {
+      switchNetwork(5);
+    }
+  }, [chain, isConnected]);
 
   if (!isReady) return <div>Setting up moralis</div>;
 

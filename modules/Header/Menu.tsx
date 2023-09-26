@@ -1,6 +1,8 @@
 import styled from "styled-components";
 import { useRouter } from "next/router";
 import { Button } from "../../components";
+import { useAccount, useConnect, useDisconnect } from "wagmi";
+import { InjectedConnector } from "wagmi/connectors/injected";
 
 const MenuContainer = styled.div`
   display: flex;
@@ -37,6 +39,11 @@ interface HeaderProps {
 
 const Menu = ({ connected, onConnect }: HeaderProps) => {
   const router = useRouter();
+  const { address, isConnected } = useAccount();
+  const { connect } = useConnect({
+    connector: new InjectedConnector(),
+  });
+  const { disconnect } = useDisconnect();
 
   const menuItems = [
     {
@@ -46,12 +53,12 @@ const Menu = ({ connected, onConnect }: HeaderProps) => {
         return router.push("/");
       },
     },
-    connected
+    isConnected
       ? {
-          label: "Profile",
+          label: "Disconnect",
           isActive: router.pathname.includes("profile"),
           action: () => {
-            return router.push("/profile");
+            return disconnect();
           },
         }
       : {
@@ -69,7 +76,13 @@ const Menu = ({ connected, onConnect }: HeaderProps) => {
       {menuItems.map((item) =>
         item.normal ? (
           <Margin key={item.label}>
-            <Button color="red" label="Connect" size="small" padding="small" />
+            <Button
+              onClick={() => connect()}
+              color="red"
+              label="Connect"
+              size="small"
+              padding="small"
+            />
           </Margin>
         ) : item.isActive ? (
           <MenuButtonActive key={item.label} onClick={() => item.action()}>

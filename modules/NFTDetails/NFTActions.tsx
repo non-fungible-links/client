@@ -1,8 +1,10 @@
 import styled from "styled-components";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Panel, Button, Modal } from "../../components";
 import { Token } from "../types";
 import { ethers } from "ethers";
+
+import contracts from "../contract";
 
 import Minter from "./Minter";
 
@@ -34,6 +36,49 @@ const NFTActions = ({ token }: NFTActionsProps) => {
   const [mintTokenOpen, setMintTokenOpen] = useState(false);
   const [linkTokenOpen, setLinkTokenOpen] = useState(false);
 
+  const [mintPrice, setMintPrice] = useState(0);
+
+  console.log(token);
+
+  useEffect(() => {
+    const main = async () => {
+      const RPC =
+        "https://eth-goerli.g.alchemy.com/v2/l_THcPj6shiZ-E1LyKHnHeXx75E1iXrT";
+
+      const provider = new ethers.JsonRpcProvider(RPC);
+
+      const nflinks = new ethers.Contract(
+        contracts.nflinks.address,
+        contracts.nflinks.abi,
+        provider
+      );
+
+      const target = {
+        chainId: token.chainId,
+        tokenAddress: token.address,
+        tokenId: token.token_id,
+      };
+
+      console.log(target);
+
+      try {
+        const linkerId = await nflinks.calculateLinkerId(target);
+
+        console.log(linkerId);
+
+        const nftPrice = await nflinks.figureMintPrice.staticCall(linkerId);
+
+        setMintPrice(nftPrice);
+      } catch (err) {
+        console.error(err);
+      }
+    };
+
+    if (token) {
+      main();
+    }
+  }, [token]);
+
   return (
     <>
       <Panel spacing={8} color="purple">
@@ -41,8 +86,7 @@ const NFTActions = ({ token }: NFTActionsProps) => {
           <InfoRow>
             <Info>
               Next Mint Price:{" "}
-              {ethers.formatEther(String(token.value ? token.value : "0"))}{" "}
-              Matic
+              {Number(ethers.formatEther(mintPrice)).toFixed(4)} Matic
             </Info>
             <Info>
               {" "}
@@ -80,7 +124,11 @@ const NFTActions = ({ token }: NFTActionsProps) => {
           setMintTokenOpen(false);
         }}
       >
-        <Minter supply={5} price={12.76} token={token} />
+        <Minter
+          supply={token.totalSupply ? token.totalSupply : String(0)}
+          price={mintPrice}
+          token={token}
+        />
       </Modal>
       <Modal
         isOpen={linkTokenOpen}
