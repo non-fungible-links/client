@@ -2,8 +2,32 @@ import { Panel } from "../../components";
 import { Token } from "../types";
 import styled from "styled-components";
 import { useRouter } from "next/router";
-
+import { useQuery, gql } from "@apollo/client";
 import { useNFT } from "../hooks/useNFT";
+import { ethers } from "ethers";
+
+const NFTS = gql`
+  {
+    nfts(first: 1000, orderBy: points, orderDirection: desc) {
+      id
+      chainId
+      address
+      tokenId
+      totalSupply
+      points
+      value
+      balance
+      linksIn {
+        id
+        weight
+      }
+      linksTo {
+        id
+        weight
+      }
+    }
+  }
+`;
 
 const PanelWrapper = styled.div<{ $index: number }>`
   margin-top: -12px;
@@ -124,11 +148,14 @@ const LeaderboardItem = ({ token, index }: { token: Token; index: number }) => {
               </TokenInfoContainer>
               <TokenRankContainer>
                 <TokenRank>Rank: {index + 1}</TokenRank>
-                <TokenPoints>Points: 48200</TokenPoints>
+                <TokenPoints>
+                  Points:{" "}
+                  {parseInt(ethers.formatUnits(String(token.points), 15))}
+                </TokenPoints>
               </TokenRankContainer>
               <TokenLinksContainer>
-                <LinksIn>Links In: 45</LinksIn>
-                <LinksOut>Links Out: 41</LinksOut>
+                <LinksIn>Links In: {token.linksIn?.length}</LinksIn>
+                <LinksOut>Links Out: {token.linksTo?.length}</LinksOut>
               </TokenLinksContainer>
             </TokenDataContainer>
           )}
@@ -139,6 +166,10 @@ const LeaderboardItem = ({ token, index }: { token: Token; index: number }) => {
 };
 
 const Leaderboard = () => {
+  const { data, loading, error } = useQuery(NFTS);
+
+  console.log(data, loading, error);
+
   const tokens = [
     {
       chainId: "0x1",
@@ -177,15 +208,29 @@ const Leaderboard = () => {
     },
   ];
 
+  if (data) {
+    console.log(
+      data.nfts //@ts-ignore
+        .map((nft) => ({ ...nft, token_id: nft.tokenId }))
+    );
+  }
+
   return (
     <div>
-      {tokens.map((token, index) => (
-        <LeaderboardItem
-          index={index}
-          key={`${token.chainId}:${token.address}:${token.token_id}`}
-          token={token}
-        />
-      ))}
+      {loading || error ? (
+        <div>Loading NFTs ...</div>
+      ) : (
+        //@ts-ignore
+        data.nfts //@ts-ignore
+          .map((nft) => ({ ...nft, token_id: nft.tokenId })) //@ts-ignore
+          .map((token, index) => (
+            <LeaderboardItem
+              index={index}
+              key={`${token.chainId}:${token.address}:${token.token_id}`}
+              token={token}
+            />
+          ))
+      )}
     </div>
   );
 };

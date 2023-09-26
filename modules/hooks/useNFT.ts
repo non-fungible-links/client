@@ -19,11 +19,13 @@ export const useNFT = ({ chainId = "eth", address, token_id }: Token) => {
   const [error, setError] = useState<null | any>();
   const [data, setData] = useState<null | NFTData>(null);
 
+  console.log(address, token_id);
+
   useEffect(() => {
     const main = async () => {
       try {
         const response = await Moralis.EvmApi.nft.getNFTMetadata({
-          chain: chainId,
+          chain: "0x1",
           format: "decimal",
           normalizeMetadata: true,
           mediaItems: true,

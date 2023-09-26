@@ -2,6 +2,7 @@ import styled from "styled-components";
 import { useState } from "react";
 import { Panel, Button, Modal } from "../../components";
 import { Token } from "../types";
+import { ethers } from "ethers";
 
 import Minter from "./Minter";
 
@@ -38,8 +39,18 @@ const NFTActions = ({ token }: NFTActionsProps) => {
       <Panel spacing={8} color="purple">
         <ActionsContent>
           <InfoRow>
-            <Info>Next Mint Price: 12 Matic</Info>
-            <Info>Rank: 102 | Points: 1423</Info>
+            <Info>
+              Next Mint Price:{" "}
+              {ethers.formatEther(String(token.value ? token.value : "0"))}{" "}
+              Matic
+            </Info>
+            <Info>
+              {" "}
+              Points:{" "}
+              {parseInt(
+                ethers.formatUnits(String(token.points ? token.points : 0), 15)
+              )}
+            </Info>
           </InfoRow>
           <ActionsRow>
             <Button

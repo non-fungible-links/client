@@ -1,34 +1,32 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+NFLinks is friend.tech but for nfts.
 
-## Getting Started
+Wait. Wt..?
 
-First, run the development server:
+friendtech is a tool to create and evaluate meaningful links between digital identities.
 
-```bash
-npm run dev
-# or
-yarn dev
-```
+Digital Identities are basically a subset of NFTs. They are nonfungible assets that represent identities. But the reason that friend tech works is not digital identities, at least not exactly.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+It works because of 2 reasons:
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+1. It links "non-fungible" identities
+   Being nonfungible means the identity ( asset ) itself is worth as much as the owner believes it is worth.
+2. Links provide meaningful utility
+   Having a utility for linking to an identity ( asset ) means those can have value. When it has value then people don't buy it just for the utility then, it can be used as a tool to speculate on the future worth of utility.
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+So now NFTs are all nonfungible by design, so if we just provide a meaningful
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+But what utility can we provide for them?
 
-## Learn More
+You know, actually the web was cool not because it had webpages, but because it had a link that can help you navigate it and discover more webpages. Now we don't know exactly what metaverse is going to be, but we know one thing. That NFTs for metaverse are going to be what webpages were for the web.
 
-To learn more about Next.js, take a look at the following resources:
+Those links help us to discover new webpages and give us abilities to rank them. Now the utility of NFLinks for the nfts is the same. We provide a leaderboard based on the links to rank NFTs, and help the NFTs to get discovered.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+In the smart-contract side the main contract is an ERC-1155 contract which hold 3 types of different tokens, linker tokens, link tokens and referral tokens. Each NFTs (ERC721) get identified by three parameters, chainId, tokenAddress, and tokenId.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+Users can mint Linker tokens, and use them to Link another NFT to the target one. When users link two nfts, they will lose their linker token and receive a link token, untill they delink it.
 
-## Deploy on Vercel
+Using UMA it is chain agnostic, and you can link any nft from any evm chain to any nft on another chain. UMA help us to identify the owner the token so they can receieve their share of the link mints.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+For data retrieval we use a custom subgraph and moralis API. It's nothing fancy but works for an MVP.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+In the frontend we use apollo-client to query subgraph, moralis APi, and a fully custom UI components. Building the UI components was pretty time consuming since I did even custom select component and custom text-field. Even the basic containers of each component (Panel) was a hell of a complex component.

@@ -143,6 +143,8 @@ interface LinksListProps {
 }
 
 const LinksList = ({ tokens }: LinksListProps) => {
+  console.log(tokens);
+
   return (
     <div>
       {tokens.map((token, index) => (
