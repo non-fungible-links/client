@@ -15,14 +15,22 @@ interface MainPanelProps {
   spacing: number;
 }
 
+/*
+  border: ${({ theme }) => theme.border.width}px solid red;
+  ${({ theme }) => theme.border.color};
+
+*/
+
 const MainPanel = styled.div<MainPanelProps>`
-  border: 2px solid black;
+  border: ${({ theme }) => theme.border.width} solid
+    ${({ theme }) => theme.border.color};
+  color: ${({ theme }) => theme.text};
   box-sizing: border-box;
   position: absolute;
   margin-left: ${({ spacing }) => spacing}px;
   margin-top: ${({ spacing }) => spacing}px;
-  background-color: white;
-  width: 100%;
+  background-color: ${({ theme }) => theme.background};
+  width: calc(100% - ${({ spacing }) => spacing}px);
 `;
 
 interface ShadowPanelProps {
@@ -34,7 +42,8 @@ interface ShadowPanelProps {
 }
 
 const ShadowPanel = styled.div<ShadowPanelProps>`
-  border: 2px solid black;
+  border: ${({ theme }) => theme.border.width} solid
+    ${({ theme }) => theme.border.color};
   position: absolute;
   box-sizing: border-box;
   width: ${(props) => props.size.width}px;
@@ -95,7 +104,7 @@ const Panel = ({
     <Container height={shadowDimensions.height + spacing}>
       <ShadowPanel background={color} size={shadowDimensions} />
       <MainPanel onClick={onClick} spacing={spacing} ref={mainPanelRef}>
-        <div>This is a high panel{children}</div>
+        <div>{children}</div>
       </MainPanel>
     </Container>
   );
