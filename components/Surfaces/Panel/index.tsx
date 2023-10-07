@@ -6,29 +6,26 @@ interface ContainerProps {
 }
 
 const Container = styled.div<ContainerProps>`
-  position: relative;
+  display: inline-block;
   width: 100%;
   height: ${(props) => props.height}px;
 `;
 
 interface MainPanelProps {
   spacing: number;
+  size: {
+    width: number;
+    height: number;
+  };
 }
-
-/*
-  border: ${({ theme }) => theme.border.width}px solid red;
-  ${({ theme }) => theme.border.color};
-
-*/
 
 const MainPanel = styled.div<MainPanelProps>`
   border: ${({ theme }) => theme.border.width} solid
     ${({ theme }) => theme.border.color};
   color: ${({ theme }) => theme.text};
   box-sizing: border-box;
-  position: absolute;
   margin-left: ${({ spacing }) => spacing}px;
-  margin-top: ${({ spacing }) => spacing}px;
+  margin-top: ${({ spacing, size }) => -1 * size.height + spacing}px;
   background-color: ${({ theme }) => theme.background};
   width: calc(100% - ${({ spacing }) => spacing}px);
 `;
@@ -44,7 +41,6 @@ interface ShadowPanelProps {
 const ShadowPanel = styled.div<ShadowPanelProps>`
   border: ${({ theme }) => theme.border.width} solid
     ${({ theme }) => theme.border.color};
-  position: absolute;
   box-sizing: border-box;
   width: ${(props) => props.size.width}px;
   height: ${(props) => props.size.height}px;
@@ -55,7 +51,7 @@ interface PanelProps {
   onClick?: React.MouseEventHandler<HTMLDivElement>;
   spacing?: number;
   color: "gray" | "red" | "purple" | "cyan" | "orange";
-  children?: JSX.Element;
+  children?: React.ReactNode;
 }
 
 const Panel = ({
@@ -64,6 +60,8 @@ const Panel = ({
   color = "gray",
   children,
 }: PanelProps) => {
+  console.log(children);
+
   const mainPanelRef = useRef<HTMLDivElement>(null);
   const [shadowDimensions, setShadowDimensions] = useState({
     width: 0,
@@ -103,8 +101,13 @@ const Panel = ({
   return (
     <Container height={shadowDimensions.height + spacing}>
       <ShadowPanel background={color} size={shadowDimensions} />
-      <MainPanel onClick={onClick} spacing={spacing} ref={mainPanelRef}>
-        <div>{children}</div>
+      <MainPanel
+        size={shadowDimensions}
+        onClick={onClick}
+        spacing={spacing}
+        ref={mainPanelRef}
+      >
+        {children}
       </MainPanel>
     </Container>
   );

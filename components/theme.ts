@@ -1,5 +1,6 @@
 const lightTheme = {
   background: "#fffffa",
+  hoverBackground: "#efefe5", //"#f8f8ec",
   text: "#333",
   red: "#FC3C44",
   purple: "#9342DA",
@@ -14,6 +15,7 @@ const lightTheme = {
 
 const darkTheme = {
   background: "#121212",
+  hoverBackground: "#252525", //"#f8f8ec",
   text: "#fff",
   red: "#D92B34",
   purple: "#8729D9",

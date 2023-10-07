@@ -1,10 +1,11 @@
 import type { Meta, StoryObj } from "@storybook/react";
+import React from "react";
 
-import { Panel } from "../components";
+import { Button } from "../components";
 
 const meta = {
-  title: "Surfaces/Panel",
-  component: Panel,
+  title: "Inputs/Button",
+  component: Button,
   decorators: [],
   parameters: {
     layout: "center",
@@ -12,7 +13,7 @@ const meta = {
   tags: ["autodocs"],
 
   argTypes: {},
-} satisfies Meta<typeof Panel>;
+} satisfies Meta<typeof Button>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
@@ -20,9 +21,10 @@ type Story = StoryObj<typeof meta>;
 export const Primary: Story = {
   args: {
     onClick: () => {},
-    spacing: 10,
-    color: "gray",
-    children: <div style={{ padding: "1em" }}>This is the real children</div>,
+    color: "red",
+    label: "Click Me",
+    size: "small",
+    fullWidth: false,
   },
   decorators: [(Story) => <div style={{ padding: "10em" }}>{Story()}</div>],
 };
