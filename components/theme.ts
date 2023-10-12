@@ -1,12 +1,13 @@
 const lightTheme = {
   background: "#fffffa",
-  hoverBackground: "#efefe5", //"#f8f8ec",
+  hoverBackground: "#efefe8", //"#f8f8ec",
   text: "#333",
   red: "#FC3C44",
   purple: "#9342DA",
   cyan: "#45F4F5",
   orange: "#FDC533",
   gray: "#EBEBEB",
+  tabColorPrimary: "#FDC533",
   border: {
     width: "2px",
     color: "#000",
@@ -22,6 +23,7 @@ const darkTheme = {
   cyan: "#2BD6D6",
   orange: "#F5B30C",
   gray: "#EBEBEB",
+  tabColorPrimary: "#8729D9",
   border: {
     width: "2px",
     color: "#fff",
