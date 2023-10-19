@@ -19,8 +19,8 @@ const LogoShadow = styled.h1`
 const Logo = () => {
   return (
     <LogoContainer>
-      <LogoMain>NFLinks</LogoMain>
-      <LogoShadow>NFLinks</LogoShadow>
+      <LogoMain>NFLINKS</LogoMain>
+      <LogoShadow>NFLINKS</LogoShadow>
     </LogoContainer>
   );
 };

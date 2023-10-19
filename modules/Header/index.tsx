@@ -12,11 +12,6 @@ const HeaderContainer = styled.div`
   padding: 0px 2em;
 `;
 
-interface HeaderProps {
-  connected: boolean;
-  onConnect: Function;
-}
-
 const Header = () => {
   return (
     <HeaderContainer>

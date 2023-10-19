@@ -22,6 +22,7 @@ const MenuButton = styled.button`
 
 const Margin = styled.div`
   margin-left: 1em;
+  margin-top: 0.3em;
 `;
 
 const MenuButtonActive = styled(MenuButton)`
