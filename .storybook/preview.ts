@@ -1,7 +1,10 @@
 import type { Preview } from "@storybook/react";
+import wtf from "@storybook/addon-viewport";
 
 import { createGlobalStyle, ThemeProvider } from "styled-components";
 import { withThemeFromJSXProvider } from "@storybook/addon-themes";
+
+console.log(wtf);
 
 /* TODO: update import for your custom theme configurations */
 import { lightTheme, darkTheme } from "../components/theme";
