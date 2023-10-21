@@ -71,15 +71,15 @@ const Menu = ({ connected, onConnect }: HeaderProps) => {
     <MenuContainer>
       {menuItems.map((item) =>
         item.normal ? (
-          <Margin>
-            <Button color="red" label="Connect" size="small" />
+          <Margin key={item.label}>
+            <Button color="red" label="Connect" size="small" padding="small" />
           </Margin>
         ) : item.isActive ? (
-          <MenuButtonActive onClick={() => item.action()} key={item.label}>
+          <MenuButtonActive key={item.label} onClick={() => item.action()}>
             {item.label}
           </MenuButtonActive>
         ) : (
-          <MenuButton onClick={() => item.action()} key={item.label}>
+          <MenuButton key={item.label} onClick={() => item.action()}>
             {item.label}
           </MenuButton>
         )

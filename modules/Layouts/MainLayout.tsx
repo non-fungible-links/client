@@ -11,6 +11,7 @@ const MainLayout = ({ children }: LayoutProps) => {
   return (
     <ThemeProvider theme={lightTheme}>
       <Header />
+      {children}
     </ThemeProvider>
   );
 };

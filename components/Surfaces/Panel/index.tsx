@@ -60,8 +60,6 @@ const Panel = ({
   color = "gray",
   children,
 }: PanelProps) => {
-  console.log(children);
-
   const mainPanelRef = useRef<HTMLDivElement>(null);
   const [shadowDimensions, setShadowDimensions] = useState({
     width: 0,

@@ -1,11 +1,10 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import React from "react";
-
-import { Button } from "../components";
+import { GoTo } from "../modules";
 
 const meta = {
-  title: "Inputs/Button",
-  component: Button,
+  title: "Modules/Goto/GoTo",
+  component: GoTo,
   decorators: [],
   parameters: {
     layout: "center",
@@ -13,18 +12,17 @@ const meta = {
   tags: ["autodocs"],
 
   argTypes: {},
-} satisfies Meta<typeof Button>;
+} satisfies Meta<typeof GoTo>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const Primary: Story = {
   args: {
-    onClick: () => {},
-    color: "red",
-    label: "Click Me",
-    size: "small",
-    $fullWidth: false,
+    selected: null,
+    onSelect: () => {},
   },
-  decorators: [(Story) => <div style={{ padding: "10em" }}>{Story()}</div>],
+  decorators: [
+    (Story) => <div style={{ padding: "1em", height: 500 }}>{Story()}</div>,
+  ],
 };

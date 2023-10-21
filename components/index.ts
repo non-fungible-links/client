@@ -1,4 +1,4 @@
 export * from "./Surfaces";
 export * from "./Inputs";
 export * from "./Navigation";
-export * from "./GoTo";
+export * from "../modules/GoTo";

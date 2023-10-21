@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { useState } from "react";
 import { HiArrowNarrowUp, HiArrowNarrowDown } from "react-icons/hi";
 
-import { Panel } from "../Surfaces";
+import { Panel } from "../../components/Surfaces";
 
 import { collections, Collection } from "./collections";
 
@@ -68,7 +68,7 @@ interface SelectorItemContainerProps {
 }
 
 const SelectorItemContainer = styled.div<SelectorItemContainerProps>`
-  margin-top: -12px;
+  margin-top: -8px;
   position: relative;
   z-index: ${({ index }) => 200 - index};
 `;
@@ -117,11 +117,14 @@ const CollectionSelector = ({
       <SelectorListContainer>
         {collections.map((collection, index) => (
           <SelectorItemContainer
-            onClick={() => onSelect(index)}
+            onClick={() => {
+              onSelect(index);
+              setIsSelecting(false);
+            }}
             key={collection.address}
             index={index}
           >
-            <Panel color="gray">
+            <Panel spacing={6} color="gray">
               <CollectionItem>
                 <CollectionImageContainer>
                   <CollectionImage src={collection.image} />
@@ -138,7 +141,7 @@ const CollectionSelector = ({
   return (
     <Container>
       <PanelWrapper onClick={() => changeSelectingStatus()}>
-        <Panel color="purple">
+        <Panel spacing={6} color="purple">
           <PanelContent>
             <SelectedContainer>
               {selected === null || collections[selected] === undefined ? (
