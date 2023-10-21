@@ -42,12 +42,9 @@ const Menu = ({ connected, onConnect }: HeaderProps) => {
     {
       label: "Leaderboard",
       isActive: router.pathname.includes("leaderboard"),
-      action: () => {},
-    },
-    {
-      label: "Collection",
-      isActive: router.pathname.includes("collections"),
-      action: () => {},
+      action: () => {
+        return router.push("/");
+      },
     },
     connected
       ? {

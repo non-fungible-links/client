@@ -19,7 +19,7 @@ const PanelContent = styled.div`
 
 const PanelWrapper = styled.div`
   position: relative;
-  z-index: 400;
+  z-index: 2400;
 `;
 
 const OpenMenuButton = styled.div`
@@ -70,7 +70,7 @@ interface SelectorItemContainerProps {
 const SelectorItemContainer = styled.div<SelectorItemContainerProps>`
   margin-top: -8px;
   position: relative;
-  z-index: ${({ index }) => 200 - index};
+  z-index: ${({ index }) => 2000 - index};
 `;
 
 const CollectionItem = styled.div`
