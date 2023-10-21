@@ -47,7 +47,7 @@ const TokenDetails: NextPage = () => {
               <LinkerInfo />
             </Col>
             <Col md={8}>
-              <NFTActions />
+              <NFTActions token={token} />
               <MarginTop />
               <NFTLinks />
             </Col>

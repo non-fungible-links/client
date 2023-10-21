@@ -1,6 +1,9 @@
 import styled from "styled-components";
+import { useState } from "react";
+import { Panel, Button, Modal } from "../../components";
+import { Token } from "../types";
 
-import { Panel, Button } from "../../components";
+import Minter from "./Minter";
 
 const ActionsContent = styled.div`
   padding: 1em;
@@ -22,20 +25,61 @@ const Info = styled.div`
   font-weight: 500;
 `;
 
-const NFTActions = () => {
+interface NFTActionsProps {
+  token: Token;
+}
+
+const NFTActions = ({ token }: NFTActionsProps) => {
+  const [mintTokenOpen, setMintTokenOpen] = useState(false);
+  const [linkTokenOpen, setLinkTokenOpen] = useState(false);
+
   return (
-    <Panel spacing={8} color="purple">
-      <ActionsContent>
-        <InfoRow>
-          <Info>Next Mint Price: 12 Matic</Info>
-          <Info>Rank: 102 | Points: 1423</Info>
-        </InfoRow>
-        <ActionsRow>
-          <Button color="cyan" padding="medium" size="small" label="Mint " />
-          <Button color="orange" padding="medium" size="small" label="Link" />
-        </ActionsRow>
-      </ActionsContent>
-    </Panel>
+    <>
+      <Panel spacing={8} color="purple">
+        <ActionsContent>
+          <InfoRow>
+            <Info>Next Mint Price: 12 Matic</Info>
+            <Info>Rank: 102 | Points: 1423</Info>
+          </InfoRow>
+          <ActionsRow>
+            <Button
+              onClick={() => {
+                setMintTokenOpen(true);
+              }}
+              color="cyan"
+              padding="medium"
+              size="small"
+              label="Mint "
+            />
+            <Button
+              onClick={() => {
+                setLinkTokenOpen(true);
+              }}
+              color="orange"
+              padding="medium"
+              size="small"
+              label="Link"
+            />
+          </ActionsRow>
+        </ActionsContent>
+      </Panel>
+      <Modal
+        isOpen={mintTokenOpen}
+        onClose={() => {
+          setMintTokenOpen(false);
+        }}
+      >
+        <Minter supply={5} price={12.76} token={token} />
+      </Modal>
+      <Modal
+        isOpen={linkTokenOpen}
+        onClose={() => {
+          setLinkTokenOpen(false);
+        }}
+      >
+        Hello Linker
+      </Modal>
+    </>
   );
 };
 
