@@ -60,6 +60,7 @@ interface TabsProps {
   size?: "small" | "medium" | "large";
   tabs: Array<TabItem>;
   selected: string | number;
+  onChange: Function;
 }
 
 const Tabs = ({
@@ -67,6 +68,7 @@ const Tabs = ({
   color = "gray",
   tabs,
   selected,
+  onChange = () => {},
 }: TabsProps) => {
   const getSpacing = () => {
     switch (size) {
@@ -94,7 +96,11 @@ const Tabs = ({
     <Panel color={color} spacing={getSpacing()}>
       <TabsContainer>
         {tabs.map((tab) => (
-          <Tab selected={tab.value === selected} padding={getPadding()}>
+          <Tab
+            onClick={() => onChange(tab.value)}
+            selected={tab.value === selected}
+            padding={getPadding()}
+          >
             {tab.label}
           </Tab>
         ))}

@@ -24,7 +24,7 @@ const Info = styled.div`
 
 const NFTActions = () => {
   return (
-    <Panel color="purple">
+    <Panel spacing={8} color="purple">
       <ActionsContent>
         <InfoRow>
           <Info>Next Mint Price: 12 Matic</Info>

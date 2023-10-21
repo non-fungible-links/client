@@ -2,7 +2,7 @@ import type { NextPage } from "next";
 import { Container, Row, Col } from "react-grid-system";
 import styled from "styled-components";
 import MainLayout from "../../modules/Layouts/MainLayout";
-import { NFTCard, NFTActions } from "../../modules";
+import { NFTCard, NFTActions, NFTLinks, LinkerInfo } from "../../modules";
 import { useRouter } from "next/router";
 import { useNFT } from "../../modules/hooks/useNFT";
 
@@ -28,8 +28,6 @@ const TokenDetails: NextPage = () => {
   const router = useRouter();
   const token = parseQuery(String(router.query.id));
 
-  console.log(token);
-
   const { data, error, loading } = useNFT(token);
 
   return (
@@ -44,9 +42,14 @@ const TokenDetails: NextPage = () => {
                 loading={loading}
                 error={error}
               />
+              <MarginTop />
+
+              <LinkerInfo />
             </Col>
             <Col md={8}>
               <NFTActions />
+              <MarginTop />
+              <NFTLinks />
             </Col>
           </Row>
           <MarginTop />
