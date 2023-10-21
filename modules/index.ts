@@ -3,6 +3,7 @@ import Menu from "./Header/Menu";
 import Header from "./Header";
 
 export * from "./GoTo";
-export * from "./Leaderboard.ts";
+export * from "./Leaderboard";
+export * from "./NFTDetails";
 
 export { Logo, Header, Menu };
