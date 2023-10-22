@@ -97,6 +97,7 @@ const Tabs = ({
       <TabsContainer>
         {tabs.map((tab) => (
           <Tab
+            key={tab.value}
             onClick={() => onChange(tab.value)}
             selected={tab.value === selected}
             padding={getPadding()}

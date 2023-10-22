@@ -39,6 +39,7 @@ export const Primary: Story = {
         value: "fourth",
       },
     ],
+    onChange: () => {},
     selected: "first",
   },
   decorators: [(Story) => <div style={{ padding: "10em" }}>{Story()}</div>],

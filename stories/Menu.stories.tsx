@@ -18,6 +18,10 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const Primary: Story = {
+  args: {
+    connected: true,
+    onConnect: () => {},
+  },
   decorators: [
     (Story) => (
       <div
